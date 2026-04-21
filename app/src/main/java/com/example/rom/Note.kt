@@ -11,6 +11,6 @@ data class Note(
     val desc: String,
     val priority: Int?,
     @PrimaryKey(autoGenerate=true)
-    val id: Int =0
+    var id: Int =0
 
 )

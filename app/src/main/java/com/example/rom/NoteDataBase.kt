@@ -21,7 +21,6 @@ abstract class NoteDataBase: RoomDatabase(){
                     klass = NoteDataBase::class.java,
                     name = "note_database"
                 )
-                    .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE=instance
                 //return instance

@@ -20,6 +20,7 @@ class AddEidtActivity : AppCompatActivity() {
     private lateinit var numberPicker: NumberPicker
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -33,8 +34,15 @@ class AddEidtActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close)
-        title="Add Note"
+        if(intent.hasExtra(Constants.EXTRA_ID)){
+            title="Edit Note"
+            editTextTitle.setText(intent.getStringExtra(Constants.EXTRA_TITLE))
+            editTextDescription.setText(intent.getStringExtra(Constants.EXTRA_DESCRIPTION))
+            numberPicker.value=intent.getIntExtra(Constants.EXTRA_PRIORITY,-1)
 
+        }else {
+            title = "Add Note"
+        }
 
 
 
@@ -65,12 +73,23 @@ class AddEidtActivity : AppCompatActivity() {
             return
         }
 
+        val id=intent.getIntExtra(Constants.EXTRA_ID,-1)
+        if(id!=-1){
+            setResult(Constants.UPDATE_REQUEST_CODE, Intent().apply {
+                putExtra(Constants.EXTRA_TITLE,title)
+                putExtra(Constants.EXTRA_DESCRIPTION,description)
+                putExtra(Constants.EXTRA_PRIORITY,priority)
+                putExtra(Constants.EXTRA_ID,id)})
 
-        setResult(Constants.REQUEST_CODE,Intent().apply {
+                finish()
+
+        }
+
+
+        setResult(Constants.ADD_REQUEST_CODE,Intent().apply {
             putExtra(Constants.EXTRA_TITLE,title)
             putExtra(Constants.EXTRA_DESCRIPTION,description)
             putExtra(Constants.EXTRA_PRIORITY,priority)})
-
             finish()
 
     }
