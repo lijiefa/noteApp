@@ -39,6 +39,10 @@ class NoteAdapter():
         notesList.addAll(notes)
         notifyDataSetChanged()
     }
+    fun getNoteAt(position: Int):Note{
+        return notesList[position]
+    }
+
 
 
     inner class NoteViewHolder(view: View): RecyclerView.ViewHolder(view){
